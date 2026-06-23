@@ -1,0 +1,27 @@
+name: CI
+ 
+on:
+  push:
+    branches: [main]
+
+jobs: 
+  pipeline:
+    uses: KubeGuardd/kubeguard-main/.github/workflows/dev-pipeline.yaml@main
+    with:
+      service_name: watcher-service
+      dockerfile_path: ./Dockerfile
+      build_context: .
+      working_directory: .
+      sonar_project_key: KubeGuardd_kubeguard-watcher-service
+      notification_recipients: ksurya112003@gmail.com
+    secrets:
+      ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
+      ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+      ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      HELM_REPO_PAT: ${{ secrets.HELM_REPO_PAT }}
+      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}      
